@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane Li | Interactive Portfolio</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        :root { --bg: #050505; --text: #F0F0F0; --accent: #CCFF00; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none; }
+        
+        /* 噪点与光标 */
+        .noise { fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.05; pointer-events: none; z-index: 9999; }
+        #cursor { width: 20px; height: 20px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; mix-blend-mode: difference; }
+
+        /* 卡片效果 */
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .project-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        
+        /* 图片容器占位 */
+        .img-placeholder { background: linear-gradient(45deg, #111, #222); overflow: hidden; position: relative; }
+        .img-placeholder::after { content: 'IMAGE/VIZ PLACEHOLDER'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; opacity: 0.3; letter-spacing: 2px; }
+
+        .marquee-text { animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div id="cursor"></div>
+
+    <div id="app">
+        <section class="min-h-screen flex flex-col justify-center px-10 md:px-20 relative">
+            <h1 class="text-[12vw] font-black uppercase tracking-tighter leading-[0.8] mb-4">{{ profileData.name }}</h1>
+            <p class="text-2xl md:text-4xl font-light italic opacity-80 mb-8 text-acid">“{{ profileData.slogan }}”</p>
+            <div class="flex gap-4">
+                <span v-for="tag in ['Data Science', 'Product Strategy', 'Analytics']" class="px-4 py-1 border border-white/20 rounded-full text-xs uppercase tracking-widest">{{ tag }}</span>
+            </div>
+            <div class="absolute bottom-10 left-20 animate-bounce opacity-30 text-xs">SCROLL TO EXPLORE ↓</div>
+        </section>
+
+        <section class="py-32 px-10 md:px-20">
+            <h2 class="text-sm uppercase tracking-[0.3em] mb-20 opacity-50">// Work Experience</h2>
+            <div class="grid grid-cols-1 gap-20">
+                <div v-for="exp in profileData.experience" class="group grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div class="img-placeholder h-[300px] rounded-2xl group-hover:scale-[1.02] transition-transform duration-700">
+                        <img v-if="exp.img" :src="exp.img" class="w-full h-full object-cover opacity-60">
+                    </div>
+                    <div>
+                        <span class="text-acid font-mono text-sm">{{ exp.period }}</span>
+                        <h3 class="text-4xl font-bold mt-2">{{ exp.company }}</h3>
+                        <p class="text-xl opacity-60 mb-6">{{ exp.role }}</p>
+                        <p class="text-sm leading-relaxed opacity-80 border-l-2 border-acid pl-6">{{ exp.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 bg-white/5 px-10 md:px-20">
+            <h2 class="text-sm uppercase tracking-[0.3em] mb-20 opacity-50 text-center">// Key Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div v-for="proj in profileData.projects" class="glass p-10 rounded-3xl project-card transition-all duration-500">
+                    <span class="text-xs uppercase tracking-widest opacity-40">{{ proj.type }}</span>
+                    <h3 class="text-3xl font-bold mt-4 mb-6">{{ proj.title }}</h3>
+                    <ul class="space-y-3">
+                        <li v-for="bullet in proj.details" class="text-sm opacity-70 flex items-start">
+                            <span class="text-acid mr-2">▹</span> {{ bullet }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 px-10 md:px-20">
+            <h2 class="text-sm uppercase tracking-[0.3em] mb-20 opacity-50">// Leadership & Social Impact</h2>
+            <div class="space-y-32">
+                <div v-for="(lead, index) in profileData.leadership" :class="['flex flex-col md:flex-row gap-12 items-center', index % 2 === 1 ? 'md:flex-row-reverse' : '']">
+                    <div class="w-full md:w-1/2">
+                        <div class="img-placeholder aspect-video rounded-3xl shadow-2xl overflow-hidden">
+                             <img v-if="lead.img" :src="lead.img" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <span class="text-xs font-mono opacity-40">{{ lead.period }}</span>
+                        <h3 class="text-3xl font-bold mt-2 mb-4">{{ lead.title }}</h3>
+                        <p class="text-acid mb-6">{{ lead.org }}</p>
+                        <div class="space-y-4 opacity-70 text-sm">
+                            <p v-for="desc in lead.details">{{ desc }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-40 px-10 md:px-20 text-center">
+            <p class="text-sm opacity-40 mb-10">READY FOR NEW CHALLENGES</p>
+            <a :href="'mailto:' + profileData.email" class="text-[8vw] font-black hover:text-acid transition-colors">GET IN TOUCH.</a>
+        </footer>
+    </div>
+
+    <script>
+        const profileData = {
+            name: "Jane Li",
+            slogan: "this is my slogan", // (2) 加入Slogan 
+            email: "jiaqi_li77@berkeley.edu",
+            // (3) Work Experience - 增加了图片占位符支持可视化 
+            experience: [
+                { 
+                    company: "Belle International", 
+                    role: "Data Analyst Intern", 
+                    period: "Summer 2025", 
+                    description: "Conducted customer segmentation using K-Means (18 segments) and built design element benchmarking matrices[cite: 26, 27]."
+                },
+                { 
+                    company: "Harvest Global Capital", 
+                    role: "Operation Analyst Intern", 
+                    period: "Summer 2024", 
+                    description: "Conducted market analysis for an $800M natural gas investment in Africa, supporting feasibility decisions[cite: 29]."
+                }
+            ],
+            // (1) Project 模块 
+            projects: [
+                {
+                    title: "Customer Churn Analysis",
+                    type: "Google Hackathon @ UC Berkeley",
+                    details: [
+                        "Built an event-time churn framework on daily usage data[cite: 40].",
+                        "Found no sharp experience degradation before churn, shifting focus to lifecycle engagement[cite: 40]."
+                    ]
+                },
+                {
+                    title: "Airbnb Smart Pricing",
+                    type: "Machine Learning Coursework",
+                    details: [
+                        "Benchmarked Random Forest, LightGBM, and XGBoost models[cite: 42].",
+                        "Demonstrated segment-aware pricing outperforms global approaches[cite: 43]."
+                    ]
+                }
+            ],
+            // (4) Leadership 部分 - 换成更适合放照片的排版 
+            leadership: [
+                {
+                    title: "Program Manager",
+                    org: "Social Practice Center, CUHK(SZ)",
+                    period: "Sep 2021 – May 2023",
+                    details: [
+                        "Planned 10+ pop-up initiatives with 2,000+ participants[cite: 46].",
+                        "Supported incubation of a Campus Barrier-Free Group[cite: 47]."
+                    ]
+                },
+                {
+                    title: "Field Research & Volunteer Teaching",
+                    org: "Rural Southwest China Program",
+                    period: "Jul 2021 – Aug 2025",
+                    details: [
+                        "Delivered 40+ art classes to 150+ students.",
+                        "Produced a 30,000-word research paper, awarded 1st place in Social Research Contest."
+                    ]
+                }
+            ]
+        };
+
+        const { createApp, onMounted } = Vue;
+        createApp({
+            setup() {
+                onMounted(() => {
+                    const cursor = document.getElementById('cursor');
+                    document.addEventListener('mousemove', (e) => {
+                        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+                    });
+
+                    // 滚动入场动画
+                    gsap.utils.toArray('section').forEach(section => {
+                        gsap.from(section, {
+                            scrollTrigger: { trigger: section, start: "top 80%" },
+                            y: 50, opacity: 0, duration: 1, ease: "power2.out"
+                        });
+                    });
+                });
+                return { profileData };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
