@@ -1,190 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jane Li | Interactive Portfolio</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jane Li – Portfolio</title>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
-        :root { --bg: #050505; --text: #F0F0F0; --accent: #CCFF00; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none; }
-        
-        /* 噪点与光标 */
-        .noise { fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.05; pointer-events: none; z-index: 9999; }
-        #cursor { width: 20px; height: 20px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; mix-blend-mode: difference; }
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-        /* 卡片效果 */
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .project-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        
-        /* 图片容器占位 */
-        .img-placeholder { background: linear-gradient(45deg, #111, #222); overflow: hidden; position: relative; }
-        .img-placeholder::after { content: 'IMAGE/VIZ PLACEHOLDER'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; opacity: 0.3; letter-spacing: 2px; }
+<!-- Vue 3 CDN -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-        .marquee-text { animation: marquee 30s linear infinite; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    </style>
+<!-- GSAP CDN -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+
+<style>
+/* ===== Liquid Void Base ===== */
+html, body {
+  background:#050505;
+  color:#F0F0F0;
+  cursor:none;
+  scroll-behavior:smooth;
+}
+
+/* Noise Texture */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity:.06;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Glassmorphism */
+.glass{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* Custom Cursor */
+.cursor{
+  width:24px;height:24px;
+  border:1px solid #CCFF00;
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  mix-blend-mode:difference;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+}
+
+/* Magnetic Hover */
+.magnet:hover{
+  color:#CCFF00;
+}
+
+/* Marquee */
+.marquee{
+  white-space:nowrap;
+  overflow:hidden;
+}
+.marquee span{
+  display:inline-block;
+  padding-right:4rem;
+  animation:marquee 25s linear infinite;
+}
+@keyframes marquee{
+  from{transform:translateX(0);}
+  to{transform:translateX(-100%);}
+}
+
+/* Timeline Dim */
+.dim{opacity:0.2}
+
+/* Liquid Gradient */
+.liquid{
+  background: radial-gradient(circle at 30% 30%, #1a1a1a, #050505 60%);
+}
+</style>
 </head>
-<body>
-    <div class="noise"></div>
-    <div id="cursor"></div>
 
-    <div id="app">
-        <section class="min-h-screen flex flex-col justify-center px-10 md:px-20 relative">
-            <h1 class="text-[12vw] font-black uppercase tracking-tighter leading-[0.8] mb-4">{{ profileData.name }}</h1>
-            <p class="text-2xl md:text-4xl font-light italic opacity-80 mb-8 text-acid">“{{ profileData.slogan }}”</p>
-            <div class="flex gap-4">
-                <span v-for="tag in ['Data Science', 'Product Strategy', 'Analytics']" class="px-4 py-1 border border-white/20 rounded-full text-xs uppercase tracking-widest">{{ tag }}</span>
-            </div>
-            <div class="absolute bottom-10 left-20 animate-bounce opacity-30 text-xs">SCROLL TO EXPLORE ↓</div>
-        </section>
+<body class="liquid">
 
-        <section class="py-32 px-10 md:px-20">
-            <h2 class="text-sm uppercase tracking-[0.3em] mb-20 opacity-50">// Work Experience</h2>
-            <div class="grid grid-cols-1 gap-20">
-                <div v-for="exp in profileData.experience" class="group grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                    <div class="img-placeholder h-[300px] rounded-2xl group-hover:scale-[1.02] transition-transform duration-700">
-                        <img v-if="exp.img" :src="exp.img" class="w-full h-full object-cover opacity-60">
-                    </div>
-                    <div>
-                        <span class="text-acid font-mono text-sm">{{ exp.period }}</span>
-                        <h3 class="text-4xl font-bold mt-2">{{ exp.company }}</h3>
-                        <p class="text-xl opacity-60 mb-6">{{ exp.role }}</p>
-                        <p class="text-sm leading-relaxed opacity-80 border-l-2 border-acid pl-6">{{ exp.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div id="app" class="relative z-10">
 
-        <section class="py-32 bg-white/5 px-10 md:px-20">
-            <h2 class="text-sm uppercase tracking-[0.3em] mb-20 opacity-50 text-center">// Key Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div v-for="proj in profileData.projects" class="glass p-10 rounded-3xl project-card transition-all duration-500">
-                    <span class="text-xs uppercase tracking-widest opacity-40">{{ proj.type }}</span>
-                    <h3 class="text-3xl font-bold mt-4 mb-6">{{ proj.title }}</h3>
-                    <ul class="space-y-3">
-                        <li v-for="bullet in proj.details" class="text-sm opacity-70 flex items-start">
-                            <span class="text-acid mr-2">▹</span> {{ bullet }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<!-- Cursor -->
+<div class="cursor" ref="cursor"></div>
 
-        <section class="py-32 px-10 md:px-20">
-            <h2 class="text-sm uppercase tracking-[0.3em] mb-20 opacity-50">// Leadership & Social Impact</h2>
-            <div class="space-y-32">
-                <div v-for="(lead, index) in profileData.leadership" :class="['flex flex-col md:flex-row gap-12 items-center', index % 2 === 1 ? 'md:flex-row-reverse' : '']">
-                    <div class="w-full md:w-1/2">
-                        <div class="img-placeholder aspect-video rounded-3xl shadow-2xl overflow-hidden">
-                             <img v-if="lead.img" :src="lead.img" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/2">
-                        <span class="text-xs font-mono opacity-40">{{ lead.period }}</span>
-                        <h3 class="text-3xl font-bold mt-2 mb-4">{{ lead.title }}</h3>
-                        <p class="text-acid mb-6">{{ lead.org }}</p>
-                        <div class="space-y-4 opacity-70 text-sm">
-                            <p v-for="desc in lead.details">{{ desc }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- ================= HERO ================= -->
+<section class="h-screen flex flex-col justify-center items-center text-center px-6">
+  <h1 class="text-7xl md:text-9xl font-extrabold tracking-tight">
+    {{ profile.name }}
+  </h1>
+  <p class="mt-6 text-xl opacity-80">{{ profile.slogan }}</p>
+  <div class="mt-8 flex gap-6 text-sm uppercase tracking-widest">
+    <span v-for="k in profile.keywords">{{ k }}</span>
+  </div>
+</section>
 
-        <footer class="py-40 px-10 md:px-20 text-center">
-            <p class="text-sm opacity-40 mb-10">READY FOR NEW CHALLENGES</p>
-            <a :href="'mailto:' + profileData.email" class="text-[8vw] font-black hover:text-acid transition-colors">GET IN TOUCH.</a>
-        </footer>
+<!-- ================= ABOUT ================= -->
+<section class="py-24 px-8 max-w-6xl mx-auto">
+  <h2 class="text-4xl mb-12">About</h2>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glass p-6 rounded-2xl">
+      <h3 class="text-lg text-[#CCFF00]">Status</h3>
+      <p class="mt-4">{{ profile.status }}</p>
     </div>
 
-    <script>
-        const profileData = {
-            name: "Jane Li",
-            slogan: "this is my slogan", // (2) 加入Slogan 
-            email: "jiaqi_li77@berkeley.edu",
-            // (3) Work Experience - 增加了图片占位符支持可视化 
-            experience: [
-                { 
-                    company: "Belle International", 
-                    role: "Data Analyst Intern", 
-                    period: "Summer 2025", 
-                    description: "Conducted customer segmentation using K-Means (18 segments) and built design element benchmarking matrices[cite: 26, 27]."
-                },
-                { 
-                    company: "Harvest Global Capital", 
-                    role: "Operation Analyst Intern", 
-                    period: "Summer 2024", 
-                    description: "Conducted market analysis for an $800M natural gas investment in Africa, supporting feasibility decisions[cite: 29]."
-                }
-            ],
-            // (1) Project 模块 
-            projects: [
-                {
-                    title: "Customer Churn Analysis",
-                    type: "Google Hackathon @ UC Berkeley",
-                    details: [
-                        "Built an event-time churn framework on daily usage data[cite: 40].",
-                        "Found no sharp experience degradation before churn, shifting focus to lifecycle engagement[cite: 40]."
-                    ]
-                },
-                {
-                    title: "Airbnb Smart Pricing",
-                    type: "Machine Learning Coursework",
-                    details: [
-                        "Benchmarked Random Forest, LightGBM, and XGBoost models[cite: 42].",
-                        "Demonstrated segment-aware pricing outperforms global approaches[cite: 43]."
-                    ]
-                }
-            ],
-            // (4) Leadership 部分 - 换成更适合放照片的排版 
-            leadership: [
-                {
-                    title: "Program Manager",
-                    org: "Social Practice Center, CUHK(SZ)",
-                    period: "Sep 2021 – May 2023",
-                    details: [
-                        "Planned 10+ pop-up initiatives with 2,000+ participants[cite: 46].",
-                        "Supported incubation of a Campus Barrier-Free Group[cite: 47]."
-                    ]
-                },
-                {
-                    title: "Field Research & Volunteer Teaching",
-                    org: "Rural Southwest China Program",
-                    period: "Jul 2021 – Aug 2025",
-                    details: [
-                        "Delivered 40+ art classes to 150+ students.",
-                        "Produced a 30,000-word research paper, awarded 1st place in Social Research Contest."
-                    ]
-                }
-            ]
-        };
+    <div class="glass p-6 rounded-2xl">
+      <h3 class="text-lg text-[#CCFF00]">Education</h3>
+      <p class="mt-4 whitespace-pre-line">{{ profile.educationShort }}</p>
+    </div>
 
-        const { createApp, onMounted } = Vue;
-        createApp({
-            setup() {
-                onMounted(() => {
-                    const cursor = document.getElementById('cursor');
-                    document.addEventListener('mousemove', (e) => {
-                        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-                    });
+    <div class="glass p-6 rounded-2xl">
+      <h3 class="text-lg text-[#CCFF00]">Location</h3>
+      <p class="mt-4">{{ profile.location }}</p>
+    </div>
+  </div>
+</section>
 
-                    // 滚动入场动画
-                    gsap.utils.toArray('section').forEach(section => {
-                        gsap.from(section, {
-                            scrollTrigger: { trigger: section, start: "top 80%" },
-                            y: 50, opacity: 0, duration: 1, ease: "power2.out"
-                        });
-                    });
-                });
-                return { profileData };
-            }
-        }).mount('#app');
-    </script>
+<!-- ================= WORK ================= -->
+<section class="py-24 px-8 max-w-5xl mx-auto">
+  <h2 class="text-4xl mb-16">Experience</h2>
+
+  <div>
+    <div v-for="(job,i) in profile.work"
+         @mouseenter="activeWork=i"
+         @mouseleave="activeWork=null"
+         class="mb-16 transition">
+
+      <div :class="{'dim': activeWork!==null && activeWork!==i}">
+        <h3 class="text-2xl font-semibold">{{ job.title }}</h3>
+        <p class="opacity-60">{{ job.company }} · {{ job.time }}</p>
+        <ul class="mt-4 list-disc ml-6 space-y-2 opacity-80">
+          <li v-for="b in job.bullets">{{ b }}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="py-24">
+  <h2 class="text-4xl text-center mb-12">Skills</h2>
+  <div class="marquee text-2xl opacity-70">
+    <span>
+      {{ profile.skills.join(" • ") }} • {{ profile.skills.join(" • ") }}
+    </span>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="py-24 px-8 max-w-5xl mx-auto">
+  <h2 class="text-4xl mb-16">Projects</h2>
+
+  <div v-for="p in profile.projects" class="glass p-8 rounded-2xl mb-8">
+    <div @click="p.open=!p.open" class="cursor-pointer">
+      <h3 class="text-2xl font-semibold magnet">{{ p.name }}</h3>
+      <p class="opacity-60 mt-2">{{ p.short }}</p>
+    </div>
+
+    <div v-if="p.open" class="mt-6 opacity-80 space-y-3">
+      <p><b>Problem:</b> {{ p.problem }}</p>
+      <p><b>Approach:</b> {{ p.approach }}</p>
+      <p><b>Analysis:</b> {{ p.analysis }}</p>
+      <p><b>Impact:</b> {{ p.impact }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LEADERSHIP ================= -->
+<section class="py-24 px-8 max-w-6xl mx-auto">
+  <h2 class="text-4xl mb-16">Leadership</h2>
+
+  <div v-for="l in profile.leadership" class="mb-16">
+    <h3 class="text-2xl font-semibold">{{ l.title }}</h3>
+    <p class="opacity-60">{{ l.time }}</p>
+    <p class="mt-4 opacity-80">{{ l.desc }}</p>
+
+    <!-- USER INSERT IMAGES HERE -->
+    <div class="grid grid-cols-3 gap-4 mt-6">
+      <div class="glass h-40 rounded-xl flex items-center justify-center opacity-40">
+        Image 1
+      </div>
+      <div class="glass h-40 rounded-xl flex items-center justify-center opacity-40">
+        Image 2
+      </div>
+      <div class="glass h-40 rounded-xl flex items-center justify-center opacity-40">
+        Image 3
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<section class="h-[60vh] flex flex-col justify-center items-center text-center">
+  <h2 class="text-6xl mb-8">Contact</h2>
+  <p class="text-xl">{{ profile.email }}</p>
+  <a :href="profile.linkedin" class="mt-4 text-[#CCFF00] magnet">LinkedIn</a>
+</section>
+
+</div>
+
+<script>
+/* ================= EASY CONFIG ================= */
+const profileData = {
+  name: "Jane Li",
+  slogan: "Designing Decisions with Data",
+  keywords: ["Analytics","Product Strategy","Data Science"],
+  status: "May 2026 New Grad",
+  location: "SF Bay Area",
+  email: "jiaqi_li77@berkeley.edu",
+  linkedin: "https://www.linkedin.com/in/janelii",
+
+  educationShort:
+`UC Berkeley – MAnalytics
+CUHK Shenzhen – BBA Finance
+Oxford – PPE Exchange`,
+
+  skills:[
+    "SQL","Python","R","Excel","Tableau","Machine Learning",
+    "Segmentation","Modeling","Visualization","PS","Video Editing"
+  ],
+
+  work:[
+    {
+      title:"Data Analyst Intern",
+      company:"Belle International",
+      time:"Summer 2025",
+      bullets:[
+        "K-Means customer segmentation (18 clusters)",
+        "Analyzed 100+ fashion brands",
+        "Built design × style benchmarking matrix"
+      ]
+    },
+    {
+      title:"Operation Analyst Intern",
+      company:"Harvest Global Capital",
+      time:"Summer 2024",
+      bullets:[
+        "Market & operational analysis for $800M gas investment",
+        "Structured feasibility & risk assessment",
+        "Cross-team research coordination"
+      ]
+    },
+    {
+      title:"Investment Analyst Intern",
+      company:"Zhong’ou Rabbit Fund",
+      time:"Summer 2023",
+      bullets:[
+        "Industry trend analysis with Wind",
+        "Full research report on clear aligner firm",
+        "Python 10-year valuation model"
+      ]
+    }
+  ],
+
+  projects:[
+    {
+      name:"Customer Churn Analysis",
+      short:"Event-time behavioral modeling",
+      problem:"Understanding real churn triggers",
+      approach:"Daily usage event-time framework",
+      analysis:"Compared within vs between user behavior",
+      impact:"Shifted retention strategy to lifecycle engagement",
+      open:false
+    },
+    {
+      name:"Airbnb Smart Pricing",
+      short:"ML pricing & segmentation",
+      problem:"Inefficient global pricing",
+      approach:"RF / LightGBM / XGBoost models",
+      analysis:"Cluster-based segmentation",
+      impact:"Segment-aware pricing outperformed global model",
+      open:false
+    }
+  ],
+
+  leadership:[
+    {
+      title:"Program Manager – Social Practice Center",
+      time:"2021–2023",
+      desc:"Led operations for 8 campus organizations and 2000+ participant initiatives."
+    },
+    {
+      title:"Field Research & Volunteer Teaching",
+      time:"2021–2025",
+      desc:"40+ art classes, rural research, 30k-word paper."
+    }
+  ]
+};
+/* ================= END CONFIG ================= */
+
+const { createApp, ref, onMounted } = Vue;
+
+createApp({
+  setup(){
+    const profile = ref(profileData);
+    const activeWork = ref(null);
+    const cursor = ref(null);
+
+    onMounted(()=>{
+      /* Cursor Move */
+      window.addEventListener("mousemove", e=>{
+        gsap.to(cursor.value,{
+          x:e.clientX,
+          y:e.clientY,
+          duration:0.2
+        });
+      });
+
+      /* Hero Animation */
+      gsap.from("h1",{y:80,opacity:0,duration:1.2});
+    });
+
+    return {profile,activeWork,cursor};
+  }
+}).mount("#app");
+</script>
+
 </body>
 </html>
