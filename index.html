@@ -1,4 +1,3 @@
-==== New Version===
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,17 +25,40 @@
 <body>
     <div class="noise"></div>
     <div id="cursor"></div>
+    
 <!-- ================= HERO ================= -->
-    <div id="app">
-        <section class="min-h-screen flex flex-col justify-center px-10 md:px-20 relative">
-            <div class="z-10">
-                <h1 class="text-[10vw] font-black uppercase tracking-tighter leading-[0.8] mb-4">{{ profileData.name }}</h1>
-                <p class="text-2xl md:text-4xl font-light italic opacity-80 text-acid">“{{ profileData.slogan }}”</p>
-                <p class="mt-6 text-xl opacity-50">{{ profileData.status }}</p>
-                <p class="mt-6 text-xl opacity-50">{{ profileData.keywords }}</p>
+<section class="min-h-screen flex flex-col justify-center px-10 md:px-20 relative overflow-hidden">
+    <div class="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-acid rounded-full blur-[180px] opacity-[0.08] animate-pulse"></div>
+    
+    <div class="z-10 max-w-7xl">
+        <h1 class="text-[12vw] md:text-[10vw] font-black uppercase tracking-tighter leading-[0.8] mb-6">
+            {{ profileData.name }}
+        </h1>
+        
+        <p class="text-2xl md:text-5xl font-light italic opacity-90 text-acid mb-10">
+            “{{ profileData.slogan }}”
+        </p>
+        
+        <p class="text-3xl md:text-4xl lg:text-5xl opacity-70 font-bold tracking-tight mb-16 max-w-4xl leading-tight">
+            {{ profileData.status }}
+        </p>
+
+        <div class="flex flex-wrap gap-4 md:gap-8">
+            <div v-for="k in profileData.keywords" 
+                 class="group relative px-10 py-4 overflow-hidden rounded-full border border-white/10 glass transition-all duration-500 hover:border-acid hover:scale-105">
+                <div class="absolute inset-0 bg-acid translate-y-full group-hover:translate-y-0 transition-transform duration-500 opacity-[0.08]"></div>
+                
+                <span class="relative text-xs md:text-sm font-black uppercase tracking-[0.4em] group-hover:text-acid transition-colors duration-300">
+                    {{ k }}
+                </span>
             </div>
-            <div class="absolute top-1/2 right-0 w-96 h-96 bg-acid rounded-full blur-[180px] opacity-10"></div>
-        </section>
+        </div>
+    </div>
+    
+    <div class="hidden lg:block absolute right-20 top-1/2 -translate-y-1/2 opacity-20 transform rotate-90 origin-right">
+        <p class="text-[10px] tracking-[1em] uppercase font-mono">Curiosity • Data • Impact</p>
+    </div>
+</section>
 
       
 <!-- ================= ABOUT ================= -->
@@ -156,13 +178,13 @@
             gpa: "3.9", 
             email: "jiaqi_li77@berkeley.edu",
             slogan: "Designing Decisions with Data",
-            keywords: ["Analytics","Product Strategy","Data Science"],
+            keywords: ["Analytics", "Business", "Strategy"],
             status: "May 2026 New Grad",
             
             education: [
-                { school: "University of California, Berkeley", degree: "Master of Analytics", period: "2025 - 2026" }, // [cite: 4, 6]
-                { school: "CUHK, Shenzhen", degree: "BBA in Finance", period: "2021 - 2025" }, // [cite: 10, 14]
-                { school: "University of Oxford", degree: "PPE Exchange Program", period: "2023 - 2024" } // [cite: 12, 16]
+                { school: "UC, Berkeley", degree: "Analytics", period: "2025 - 2026 Master" }, // [cite: 4, 6]
+                { school: "Chinese University of Hong Kong, Shenzhen", degree: "Finance", period: "2021 - 2025 Bachelor" }, // [cite: 10, 14]
+                { school: "University of Oxford", degree: "Polotics, Philosophy & Economics", period: "2023 - 2024 Exchange" } // [cite: 12, 16]
             ],
 
             skills: ["SQL", "Python", "Machine Learning", "Tableau", "R", "Excel", "Deep Learning", "Optimization"], // [cite: 20]
@@ -180,8 +202,18 @@
                 },
                 {
                     company: "Harvest Global Capital", // [cite: 29]
-                    role: "Operation Analyst Intern",
+                    role: "Operation & Analytics Intern",
                     bullet: "Summer 2024", // [cite: 28]
+                    img: "",
+                    details: [
+                        "Conducted market analysis for an $800M African natural gas investment.", // [cite: 29]
+                        "Structured reporting for stakeholders and ensured cross-team data accuracy." // [cite: 31]
+                    ]
+                }
+                {
+                    company: "Zhong'ou Rabbit Fund", // [cite: 29]
+                    role: "Investment Research Intern",
+                    bullet: "Summer 2023",
                     img: "",
                     details: [
                         "Conducted market analysis for an $800M African natural gas investment.", // [cite: 29]
