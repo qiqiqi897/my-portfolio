@@ -97,83 +97,237 @@
             </div>
         </section>
 <!-- ================= Experience ================= -->
-        <section class="py-32 px-10 md:px-20 border-t border-white/5">
-            <h2 class="text-sm uppercase tracking-[0.5em] mb-20 opacity-30">//Experience</h2>
-            
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                    <div>
-                        <h3 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">Belle Int'l</h3>
-                        <div class="mt-4 flex flex-wrap gap-4 items-center">
-                            <span class="text-acid text-xl font-bold tracking-tight">Product Strategy & Data Division</span>
-                            <span class="opacity-30">/</span>
-                            <span class="text-xl opacity-60">Data Analyst Intern</span>
-                        </div>
-                    </div>
-                    <div class="text-right font-mono text-sm opacity-40 tracking-widest uppercase">
-                        Shenzhen, China <br>Summer 2025 
-                    </div>
-                </div>
-                <!-- ================= Belle alpha project ================= -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 items-center">
-                    <div class="glass p-10 rounded-[2rem] order-2 lg:order-1">
-                        <div class="flex items-center gap-3 mb-6">
-                            <span class="w-2 h-2 bg-acid rounded-full animate-ping"></span>
-                            <span class="text-xs font-black uppercase tracking-widest text-acid">Project Alpha</span>
-                        </div>
-                        <h4 class="text-3xl font-bold mb-6 leading-tight">KBF-Based Driver System: <br>User Archetype Mapping</h4>
-                        <p class="text-sm opacity-70 leading-relaxed mb-8">
-                            基于 K-Means 算法对跨品牌客户进行 18 类细分 [cite: 26]。构建了映射“价格敏感度”与“情感共鸣”的 KBF 驱动模型，将复杂的行为数据转化为可落地的市场用户原型。
-                        </p>
-                        <div class="flex gap-4">
-                            <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">K-Means (k=18)</span>
-                            <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Archetype Modeling</span>
-                        </div>
-                    </div>
-   
-                    
-                    <div class="order-1 lg:order-2 h-80 glass rounded-[2rem] relative overflow-hidden flex items-center justify-center group">
-                        <svg class="w-full h-full p-12 opacity-40 group-hover:opacity-80 transition-opacity" viewBox="0 0 200 100">
-                            <line x1="20" y1="80" x2="180" y2="80" stroke="white" stroke-width="0.5" />
-                            <line x1="20" y1="20" x2="20" y2="80" stroke="white" stroke-width="0.5" />
-                            <circle v-for="n in 18" :cx="30 + Math.random()*140" :cy="30 + Math.random()*40" r="3" fill="#CCFF00" class="animate-pulse" />
-                            <text x="130" y="90" fill="white" font-size="5" class="opacity-50">Price Sensitivity</text>
-                            <text x="10" y="15" fill="white" font-size="5" class="opacity-50" transform="rotate(-90 10,15)">Emotional Resonance</text>
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-sm">
-                            <span class="text-xs font-mono tracking-widest">VISUALIZING 18 CLUSTERS</span>
-                        </div>
-                    </div>
-                </div>
+<section class="py-32 px-10 md:px-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-20">
+            <h3 class="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-4">Belle Int'l</h3>
+            <p class="text-acid text-xl font-bold italic tracking-tight">Product Strategy & Data Division — Data Analyst Intern</p>
+        </div>
 
-                  <!-- ================= Belle beta project ================= -->  
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                     <div class="h-80 glass rounded-[2rem] relative overflow-hidden p-8 grid grid-cols-4 gap-2 opacity-30 hover:opacity-100 transition-all group">
-                        <div v-for="n in 16" :class="['rounded-md', Math.random() > 0.6 ? 'bg-acid' : 'bg-white/10']"></div>
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <span class="text-xs font-black tracking-[0.3em] uppercase rotate-[-5deg]">Design Element × Style Matrix</span>
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-16 mb-40 items-start">
+            <div class="xl:col-span-2 glass p-10 rounded-[2.5rem]">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-2 h-2 bg-acid rounded-full animate-ping"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-acid">01. Cluster Positioning</span>
+                </div>
+                <h4 class="text-4xl font-bold mb-8 leading-[1.1]">Customer Cluster Positioning <br>& Demographic Analysis</h4>
+                <p class="text-sm opacity-70 leading-relaxed mb-8">
+                    Mapping 18 clusters across the <strong>KBF (Key Buying Factor)</strong> spectrum. By correlating price sensitivity against emotional resonance, we identified market-ready archetypes including their specific style preferences and purchasing power.
+                </p>
+                <div class="space-y-4 border-t border-white/10 pt-8">
+                    <div v-for="c in clusters" class="flex items-center justify-between group cursor-help">
+                        <div class="flex items-center gap-3">
+                            <span :class="c.color" class="w-3 h-3 rounded-full shadow-[0_0_10px_rgba(204,255,0,0.5)]"></span>
+                            <span class="text-xs font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">{{ c.name }}</span>
                         </div>
-                    </div>
-       
-                    <div class="glass p-10 rounded-[2rem]">
-                        <div class="flex items-center gap-3 mb-6">
-                            <span class="w-2 h-2 bg-acid rounded-full"></span>
-                            <span class="text-xs font-black uppercase tracking-widest text-acid">Project Beta</span>
-                    </div>
-                    <h4 class="text-3xl font-bold mb-6 leading-tight">Design × Style <br>Benchmarking Matrix</h4>
-                    <p class="text-sm opacity-70 leading-relaxed mb-8">
-                        分析 100+ 细分时尚鞋履品牌 。首创“设计元素 × 风格定位”对标矩阵，为产品研发和品牌视觉方向提供量化支撑，协助提取差异化竞争策略 。
-                    </p>
-                    <div class="flex gap-4">
-                        <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Competitive Intelligence</span>
-                        <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Quantitative Benchmarking</span>
+                        <span class="text-[10px] font-mono opacity-30 group-hover:text-acid">{{ c.pref }}</span>
                     </div>
                 </div>
             </div>
-        </div>       
-    </section>
+
+            <div class="xl:col-span-3 aspect-square md:aspect-video glass rounded-[3rem] relative p-12 overflow-hidden group">
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] opacity-40">Appearance Focus</div>
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] opacity-40">Functional Focus</div>
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] uppercase tracking-[0.3em] opacity-40 text-center w-32">Price Sensitivity</div>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 rotate-90 text-[10px] uppercase tracking-[0.3em] opacity-40 text-center w-32">Emotional Resonance</div>
+                
+                <div class="absolute inset-0 border-x border-y border-white/5 pointer-events-none">
+                    <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white/10"></div>
+                    <div class="absolute left-1/2 top-0 w-[1px] h-full bg-white/10"></div>
+                </div>
+
+                <div v-for="b in clusters" 
+                     class="absolute rounded-full cursor-pointer transition-all duration-700 hover:scale-125 hover:z-50 flex items-center justify-center border border-white/20 group/bubble"
+                     :style="{ left: b.x + '%', top: b.y + '%', width: b.size + 'px', height: b.size + 'px', background: b.bg }">
+                    <div class="opacity-0 group-hover/bubble:opacity-100 absolute -top-24 w-48 p-4 glass rounded-xl border-acid transition-opacity pointer-events-none z-50">
+                        <p class="text-acid font-black text-[10px] mb-1 uppercase tracking-tighter">{{ b.pref }}</p>
+                        <p class="text-white text-[10px] opacity-70">Avg. Age: {{ b.age }} | Income: {{ b.income }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-16 items-center">
+            <div class="xl:col-span-3 glass rounded-[3rem] overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-white/5">
+                            <th class="p-6 text-[10px] uppercase opacity-30 font-black border-r border-white/5">Design Element</th>
+                            <th v-for="h in ['Structure', 'Material', 'Craftsmanship']" class="p-6 text-[10px] uppercase text-acid font-black tracking-widest">{{ h }}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-[11px] font-mono">
+                        <tr v-for="row in matrixRows" class="border-t border-white/5 hover:bg-white/[0.02] transition-colors">
+                            <td class="p-6 opacity-40 uppercase border-r border-white/5">{{ row.style }}</td>
+                            <td v-for="cell in row.data" class="p-6 leading-relaxed">
+                                <span v-if="cell" class="opacity-80">▹ {{ cell }}</span>
+                                <div v-else class="w-4 h-[1px] bg-white/10"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="xl:col-span-2 glass p-10 rounded-[2.5rem]">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-2 h-2 bg-white/20 rounded-full"></span>
+                    <span class="text-xs font-black uppercase tracking-widest opacity-40">02. Design Matrix</span>
+                </div>
+                <h4 class="text-4xl font-bold mb-8">Design Element × Style Positioning Matrix</h4>
+                <p class="text-sm opacity-70 leading-relaxed mb-8">
+                    Synthesized logic from 100+ case studies to map <strong>Product Dimensions</strong> (Structure, Material, Craftsmanship) against <strong>User Perception</strong> (Time, Age, Gender). 
+                </p>
+                <div class="p-6 border border-acid/20 rounded-2xl bg-acid/5 italic text-sm">
+                    "Pattern Identified: <strong>Tech-Fusion</strong> results from matching high-tech craftsmanship with dynamic, agender-neutral style positioning."
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- ================= Experience2: Harvest ================= -->
-        
+<section class="py-32 px-10 md:px-20 bg-[#080808]">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-20 gap-8">
+            <div class="max-w-3xl">
+                <h3 class="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-4">Harvest Global</h3>
+                <p class="text-acid text-xl font-bold italic tracking-tight mb-6">Investment & Operations Analyst — $800M Energy Infrastructure </p>
+                <p class="text-sm opacity-60 leading-relaxed">
+                    Spearheaded a multi-layered market and operational due diligence for a major African natural gas investment. 
+                    The analysis moved from global macro trends down to granular geopolitical risk modeling to support a robust ROI assessment.
+                </p>
+            </div>
+            <div class="font-mono text-sm opacity-30 uppercase tracking-widest text-right">
+                Hong Kong SAR <br>Summer 2024 [cite: 28]
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass p-8 rounded-3xl border-white/5 hover:border-acid/30 transition-colors group">
+                <span class="text-[10px] font-black text-acid uppercase tracking-[0.3em] mb-4 block">Phase 01</span>
+                <h4 class="text-lg font-bold mb-4">Macro-Market Synthesis</h4>
+                <p class="text-xs opacity-50 leading-relaxed mb-6">
+                    Multi-tier analysis covering <strong>Global-Africa-Local</strong> supply/demand dynamics, pricing mechanisms, and logistics infrastructure.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[8px] px-2 py-1 bg-white/5 rounded italic">Pricing Mechanics</span>
+                    <span class="text-[8px] px-2 py-1 bg-white/5 rounded italic">Supply Chain Logistics</span>
+                </div>
+            </div>
+
+            <div class="glass p-8 rounded-3xl border-white/5 hover:border-acid/30 transition-colors group">
+                <span class="text-[10px] font-black text-acid uppercase tracking-[0.3em] mb-4 block">Phase 02</span>
+                <h4 class="text-lg font-bold mb-4">Feasibility & Potential</h4>
+                <p class="text-xs opacity-50 leading-relaxed mb-6">
+                    Evaluated export capacity vs. domestic consumption needs to forecast long-term market absorption and revenue scalability.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[8px] px-2 py-1 bg-white/5 rounded italic">Export Strategy</span>
+                    <span class="text-[8px] px-2 py-1 bg-white/5 rounded italic">Demand Forecasting</span>
+                </div>
+            </div>
+
+            <div class="glass p-8 rounded-3xl border-white/5 hover:border-acid/30 transition-colors group">
+                <span class="text-[10px] font-black text-acid uppercase tracking-[0.3em] mb-4 block">Phase 03</span>
+                <h4 class="text-lg font-bold mb-4">Economic Validation</h4>
+                <p class="text-xs opacity-50 leading-relaxed mb-6">
+                    Constructed feasibility forecasts by stress-testing cost structures, revenue streams, and overall ROI profitability.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[8px] px-2 py-1 bg-white/5 rounded italic">ROI Sensitivity</span>
+                    <span class="text-[8px] px-2 py-1 bg-white/5 rounded italic">Cost-Profit Verification</span>
+                </div>
+            </div>
+
+            <div class="glass p-8 rounded-3xl border-acid/50 bg-acid/5 group">
+                <span class="text-[10px] font-black text-acid uppercase tracking-[0.3em] mb-4 block">Phase 04</span>
+                <h4 class="text-lg font-bold mb-4">Risk Architecture</h4>
+                <p class="text-xs opacity-70 leading-relaxed mb-6">
+                    Deep-dive into <strong>geopolitical stability</strong>, competitive dynamics, and policy shifts to identify "hidden" investment barriers.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[8px] px-2 py-1 bg-acid/20 text-acid rounded italic">Geopolitical Stress Test</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 glass p-10 rounded-[2.5rem] border-l-4 border-l-acid relative overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="max-w-2xl">
+                    <h5 class="text-acid font-black text-xs uppercase tracking-widest mb-2 italic">Strategic Impact</h5>
+                    <p class="text-xl font-medium leading-relaxed">
+                        Identified critical geopolitical and policy risks that were previously under-weighted in initial projections. 
+                        Provided a <span class="text-white underline decoration-acid underline-offset-4">robust risk alert framework</span> that recalibrated the investment buffer for the $800M project.
+                    </p>
+                </div>
+                <div class="text-6xl font-black opacity-10 uppercase italic tracking-tighter">Robust Warning</div>
+            </div>
+            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-acid/10 blur-[80px] rounded-full"></div>
+        </div>
+    </div>
+</section>
+<!-- ================= Experience3: Zhong'ou ================= -->
+<section class="py-32 px-10 md:px-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+            <div>
+                <h3 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">Zhong'ou Rabbit Fund</h3>
+                <div class="mt-4 flex flex-wrap gap-4 items-center">
+                    <span class="text-acid text-xl font-bold tracking-tight">Investment Research Division</span>
+                    <span class="opacity-30">/</span>
+                    <span class="text-xl opacity-60">Investment Analyst Intern</span>
+                </div>
+            </div>
+            <div class="text-right font-mono text-sm opacity-40 tracking-widest uppercase">
+                Shenzhen, China<br>Summer 2023
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass p-10 rounded-[2.5rem] relative overflow-hidden group">
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-2 h-2 bg-acid rounded-full"></span>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-acid">Industry Intelligence</span>
+                    </div>
+                    <h4 class="text-3xl font-bold mb-6">B2C E-commerce <br>Dynamics</h4>
+                    <p class="text-sm opacity-70 leading-relaxed mb-8">
+                        Leveraged the <strong>Wind database</strong> to analyze industry trends and competitive dynamics within the B2C e-commerce sector. Identified key growth drivers and market shifts to inform broader fund strategy.
+                    </p>
+                    <div class="flex gap-3">
+                        <span class="text-[10px] px-3 py-1 bg-white/5 rounded-full font-mono">Wind Database</span>
+                        <span class="text-[10px] px-3 py-1 bg-white/5 rounded-full font-mono">Trend Forecasting</span>
+                    </div>
+                </div>
+                <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <path d="M10 80 Q 30 10 50 50 T 90 20" fill="none" stroke="white" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="glass p-10 rounded-[2.5rem] relative border-l-4 border-l-acid">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-2 h-2 bg-acid rounded-full animate-pulse"></span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-acid">Valuation Synthesis</span>
+                </div>
+                <h4 class="text-3xl font-bold mb-6">Clear Aligner <br>Investment Report</h4>
+                <p class="text-sm opacity-70 leading-relaxed mb-8">
+                    Authored a comprehensive research report evaluating business models, market potential, and industry barriers. Built a <strong>Python-based 10-year cash flow model</strong> to generate quantitative strategic recommendations.
+                </p>
+                
+                <div class="bg-white/5 p-6 rounded-2xl">
+                    <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+                        <span class="text-[10px] uppercase tracking-widest opacity-40">10-Year DCF Engine</span>
+                        <span class="text-[10px] font-mono text-acid">Python / NumPy</span>
+                    </div>
+                    <p class="text-xs italic opacity-80 leading-relaxed">
+                        "Translated complex valuation results into actionable investment signals, assessing the long-term sustainability of competitive advantages."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- ================= Project ================= -->
         <section class="py-32 px-10 md:px-20 bg-white/[0.02]">
             <div class="max-w-5xl mx-auto">
@@ -283,33 +437,71 @@
                     period: "Summer 2025",
                 }, // 🔧 这里加上了缺失的逗号
                 {
-                    company: "Harvest Global Capital",
-                    role: "Operation & Analytics Intern",
-                    period: "Summer 2024",
-                }, // 🔧 这里加上了缺失的逗号
+                    company: "Harvest Global Capital Investments"
+                    role: "Operation Analyst Intern"
+                    period: "Summer 2024"
+                    location: "Hong Kong SAR"
+                    // Details handled by the custom Fine-tuned HTML module above
+                },
                 {
-                    company: "Zhong'ou Rabbit Fund",
-                    role: "Investment Research Intern",
-                    period: "Summer 2023",
+                    company: "Zhong'ou Rabbit Fund"
+                    role: "Investment Analyst Intern"
+                    period: "Summer 2023"
+       
+                }
+            ],
+        
+            // Data for Project 1: Bubble Chart
+            clusters: [
+                { 
+                    name: "The Urban Elite", x: 75, y: 25, size: 80, 
+                    bg: "rgba(204,255,0,0.2)", color: "bg-acid",
+                    pref: "Mid-high Casual/Sports", age: "36", income: ">10k (High)" 
+                },
+                { 
+                    name: "Utility Practicalists", x: 20, y: 80, size: 110, 
+                    bg: "rgba(255,255,255,0.05)", color: "bg-white/40",
+                    pref: "Budget Utility/Daily", age: "45", income: "Mid" 
+                },
+                { 
+                    name: "Trendy Youth", x: 80, y: 70, size: 60, 
+                    bg: "rgba(204,255,0,0.1)", color: "bg-acid/60",
+                    pref: "Fast Fashion/Sneakers", age: "22", income: "Student/Entry" 
                 }
             ],
 
+            // Data for Project 2: Logic Matrix
+            matrixRows: [
+                { 
+                    style: "Time (Retro-Future)", 
+                    data: ["Vintage Outsole Shapes", "Re-engineered Classics", "Tech-infused Aesthetics"] 
+                },
+                { 
+                    style: "Age (Elegant-Girly)", 
+                    data: ["Structured Silhouettes", "Premium Soft Leather", "Embellished Textures"] 
+                },
+                { 
+                    style: "Gender (Masc-Agender)", 
+                    data: ["Neutral Last Shapes", "Rugged Materials", "Gender-neutral Finishings"] 
+                }
+            ]
+
             projects: [
                 {
-                    title: "Customer Churn Analysis",
-                    type: "Google Hackathon @ UC Berkeley",
-                    problem: "如何区分<strong>真实的体验衰减</strong>与<strong>周期性流失</strong>？",
-                    method: "构建了 <span class='text-acid'>Event-time Churn Framework</span>。",
-                    analysis: "利用 Python 分析每日使用深度，对比 18 个特征维度。",
-                    impact: "将运营重心转向<mark class='bg-acid text-black px-1'>全周期参与策略</mark>。"
-                }, // 🔧 这里加上了缺失的逗号
+                    title: "Customer Churn Analysis", [cite: 38]
+                    type: "Google Hackathon @ UC Berkeley", [cite: 38]
+                    problem: "How to distinguish between <strong>true experience degradation</strong> and <strong>cyclical churn</strong>? [cite: 40]",
+                    method: "Constructed an <span class='text-acid'>Event-time Churn Framework</span> to compare within- vs. between-user behavior pre-churn[cite: 40].",
+                    analysis: "Utilized Python to analyze daily usage depth and compared behavior across 18 feature dimensions[cite: 40].",
+                    impact: "Shifted the retention focus toward a <mark class='bg-acid text-black px-1'>lifecycle engagement strategy</mark> after finding no sharp experience decay before churn[cite: 40]."
+                },
                 {
-                    title: "Airbnb Smart Pricing",
-                    type: "Machine Learning @ UC Berkeley",
-                    problem: "如何通过机器学习算法优化房源定价策略？",
-                    method: "Random Forest & XGBoost Models.",
-                    analysis: "分析了位置、评价等特征对价格的非线性影响。",
-                    impact: "证明了<span class='text-acid'>细分市场模型</span>优于全局平均模型。"
+                    title: "Airbnb Smart Pricing", [cite: 42]
+                    type: "Machine Learning @ UC Berkeley", [cite: 42]
+                    problem: "How to optimize property pricing strategies using sophisticated machine learning algorithms? [cite: 42]",
+                    method: "Benchmarked Random Forest, LightGBM, and XGBoost models with engineered location and amenities features[cite: 42].",
+                    analysis: "Analyzed the nonlinear impact of features on price using clustering-based market segmentation[cite: 42, 43].",
+                    impact: "Demonstrated that <span class='text-acid'>segment-aware pricing models</span> significantly outperform global average approaches[cite: 43]."
                 }
             ],
 
@@ -336,7 +528,7 @@
 
         createApp({
             setup() {
-                // 🔧 这里加入了卡片展开的逻辑
+                // 
                 const activeProject = ref(null);
                 const toggleProject = (index) => {
                     activeProject.value = activeProject.value === index ? null : index;
@@ -356,7 +548,7 @@
                     });
                 });
 
-                return { profileData, activeProject, toggleProject };
+                return { profileData, activeProject, toggleProject, clusters: profileData.clusters, matrixRows: profileData.matrixRows };
             }
         }).mount('#app');
     </script>
