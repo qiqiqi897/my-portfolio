@@ -193,18 +193,56 @@
             </div>
         </section>
 <!-- ================= PROJECTS ================= -->
-        <section class="py-32 px-10 md:px-20 bg-white/[0.02]">
-            <h2 class="text-4xl font-black mb-20 text-center tracking-tighter uppercase">Selected Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div v-for="proj in profileData.projects" class="glass p-10 rounded-[2.5rem] hover:border-acid transition-all duration-500 group">
-                    <h3 class="text-2xl font-bold mb-4 group-hover:text-acid">{{ proj.title }}</h3>
-                    <p class="text-sm opacity-60 leading-relaxed mb-8">{{ proj.desc }}</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span v-for="t in proj.tags" class="text-[9px] border border-white/20 px-4 py-1.5 rounded-full uppercase tracking-widest font-bold">{{ t }}</span>
+<section class="py-32 px-10 md:px-20 bg-white/[0.02]">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-[5vw] font-black mb-20 tracking-tighter italic uppercase text-center">
+            Selected Projects<span class="text-acid">.</span>
+        </h2>
+
+        <div class="space-y-6">
+            <div v-for="(proj, index) in profileData.projects" :key="index" 
+                 class="glass rounded-[2rem] overflow-hidden border border-white/5 transition-all duration-500 hover:border-white/20">
+                
+                <div @click="toggleProject(index)" 
+                     class="p-10 cursor-pointer flex justify-between items-center group">
+                    <div>
+                        <span class="text-acid font-mono text-xs tracking-widest uppercase mb-2 block">0{{index + 1}}. {{ proj.type }}</span>
+                        <h3 class="text-3xl md:text-4xl font-bold group-hover:pl-4 transition-all duration-500">{{ proj.title }}</h3>
+                    </div>
+                    <div :class="{'rotate-180': activeProject === index}" class="transition-transform duration-500 text-3xl opacity-30 group-hover:opacity-100 group-hover:text-acid">
+                        ↓
+                    </div>
+                </div>
+
+                <div v-show="activeProject === index" class="project-details-content px-10 pb-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 pt-8 border-t border-white/5">
+                        
+                        <div>
+                            <h4 class="text-acid font-black text-xs uppercase tracking-widest mb-4">01. Problem Statement</h4>
+                            <p class="text-sm leading-relaxed opacity-80" v-html="proj.problem"></p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-acid font-black text-xs uppercase tracking-widest mb-4">02. Methodology</h4>
+                            <p class="text-sm leading-relaxed opacity-80" v-html="proj.method"></p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-acid font-black text-xs uppercase tracking-widest mb-4">03. Implementation</h4>
+                            <p class="text-sm leading-relaxed opacity-80" v-html="proj.analysis"></p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-acid font-black text-xs uppercase tracking-widest mb-4">04. Impact & Conclusion</h4>
+                            <p class="text-sm leading-relaxed opacity-80 font-bold text-white" v-html="proj.impact"></p>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 <!-- ================= LEADERSHIP ================= -->
         <section class="py-32 px-10 md:px-20">
             <h2 class="text-4xl font-black mb-20 italic uppercase">Leadership<span class="text-acid">.</span></h2>
@@ -293,19 +331,30 @@
                 }
             ],
       
-
             projects: [
                 {
-                    title: "Google Hackathon: Churn Analysis", // [cite: 38]
-                    desc: "Built an event-time churn framework on daily usage data to compare within- vs. between-user behavior.", // [cite: 40]
+                    title: "Customer Churn Analysis",
                     tags: ["Python", "Retention Strategy", "Analytics"]
-                },
-                {
-                    title: "Airbnb Smart Pricing", // [cite: 42]
-                    desc: "Developed pricing models using Random Forest and XGBoost to outperform global pricing approaches.", // [cite: 42, 43]
-                    tags: ["Machine Learning", "XGBoost", "Clustering"]
+                    type: "Google Hackathon @ UC Berkeley",
+                    // 您可以在这里直接写 HTML 标签来加粗或高亮
+                    problem: "如何区分<strong>真实的体验衰减</strong>与<strong>周期性流失</strong>？[cite: 38, 40]",
+                    method: "构建了 <span class='text-acid'>Event-time Churn Framework</span>，拆解用户生命周期行为 [cite: 40]。",
+                    analysis: "利用 Python 分析每日使用深度，对比了 18 个特征维度的用户习惯 [cite: 40]。",
+                    impact: "发现流失前并无剧烈体验下滑，从而将运营重心从<mark class='bg-acid text-black px-1'>故障修复</mark>转向<mark class='bg-acid text-black px-1'>全周期参与策略</mark> [cite: 40]。"
                 }
-            ],
+                {
+                    title: "Airbnb Smart Pricing",
+                    tags: ["Machine Learning", "XGBoost", "Clustering"]
+                    type: "Machine Learning Project @ UC Berkeley",
+                    // 您可以在这里直接写 HTML 标签来加粗或高亮
+                    problem: "如何区分<strong>真实的体验衰减</strong>与<strong>周期性流失</strong>？[cite: 38, 40]",
+                    method: "Clusting, Random Forest and XGBoost",
+                    analysis: "Developed pricing models using  to outperform global pricing approaches.",
+                    impact: "发现流失前并无剧烈体验下滑，从而将运营重心从<mark class='bg-acid text-black px-1'>故障修复</mark>转向<mark class='bg-acid text-black px-1'>全周期参与策略</mark> [cite: 40]。"
+                }
+        
+            ]
+          
 
             leadership: [
                 {
