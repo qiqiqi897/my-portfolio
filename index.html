@@ -97,6 +97,80 @@
             </div>
         </section>
 <!-- ================= EXPERIENCE ================= -->
+    <section class="py-32 px-10 md:px-20 border-t border-white/5">
+    <h2 class="text-sm uppercase tracking-[0.5em] mb-20 opacity-30">// Featured Experience</h2>
+    
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+                <h3 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">Belle Int'l</h3>
+                <div class="mt-4 flex flex-wrap gap-4 items-center">
+                    <span class="text-acid text-xl font-bold tracking-tight">Product Strategy & Data Division</span>
+                    <span class="opacity-30">/</span>
+                    <span class="text-xl opacity-60">Data Analyst Intern</span>
+                </div>
+            </div>
+            <div class="text-right font-mono text-sm opacity-40 tracking-widest uppercase">
+                Shenzhen, China [cite: 24]<br>Summer 2025 [cite: 25]
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 items-center">
+            <div class="glass p-10 rounded-[2rem] order-2 lg:order-1">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-2 h-2 bg-acid rounded-full animate-ping"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-acid">Project Alpha</span>
+                </div>
+                <h4 class="text-3xl font-bold mb-6 leading-tight">KBF-Based Driver System: <br>User Archetype Mapping</h4>
+                <p class="text-sm opacity-70 leading-relaxed mb-8">
+                    基于 K-Means 算法对跨品牌客户进行 18 类细分 。构建了映射“价格敏感度”与“情感共鸣”的 KBF 驱动模型，将复杂的行为数据转化为可落地的市场用户原型 。
+                </p>
+                <div class="flex gap-4">
+                    <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">K-Means (k=18)</span>
+                    <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Archetype Modeling</span>
+                </div>
+            </div>
+            
+            <div class="order-1 lg:order-2 h-80 glass rounded-[2rem] relative overflow-hidden flex items-center justify-center group">
+                <svg class="w-full h-full p-12 opacity-40 group-hover:opacity-80 transition-opacity" viewBox="0 0 200 100">
+                    <line x1="20" y1="80" x2="180" y2="80" stroke="white" stroke-width="0.5" />
+                    <line x1="20" y1="20" x2="20" y2="80" stroke="white" stroke-width="0.5" />
+                    <circle v-for="n in 18" :cx="30 + Math.random()*140" :cy="30 + Math.random()*40" r="3" fill="#CCFF00" class="animate-pulse" />
+                    <text x="130" y="90" fill="white" font-size="5" class="opacity-50">Price Sensitivity</text>
+                    <text x="10" y="15" fill="white" font-size="5" class="opacity-50" transform="rotate(-90 10,15)">Emotional Resonance</text>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-sm">
+                    <span class="text-xs font-mono tracking-widest">VISUALIZING 18 CLUSTERS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+             <div class="h-80 glass rounded-[2rem] relative overflow-hidden p-8 grid grid-cols-4 gap-2 opacity-30 hover:opacity-100 transition-all group">
+                <div v-for="n in 16" :class="['rounded-md', Math.random() > 0.6 ? 'bg-acid' : 'bg-white/10']"></div>
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span class="text-xs font-black tracking-[0.3em] uppercase rotate-[-5deg]">Design Element × Style Matrix</span>
+                </div>
+            </div>
+
+            <div class="glass p-10 rounded-[2rem]">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-2 h-2 bg-acid rounded-full"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-acid">Project Beta</span>
+                </div>
+                <h4 class="text-3xl font-bold mb-6 leading-tight">Design × Style <br>Benchmarking Matrix</h4>
+                <p class="text-sm opacity-70 leading-relaxed mb-8">
+                    分析 100+ 细分时尚鞋履品牌 。首创“设计元素 × 风格定位”对标矩阵，为产品研发和品牌视觉方向提供量化支撑，协助提取差异化竞争策略 。
+                </p>
+                <div class="flex gap-4">
+                    <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Competitive Intelligence</span>
+                    <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Quantitative Benchmarking</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
         <section class="py-32 px-10 md:px-20">
             <h2 class="text-4xl font-black mb-20 italic">EXPERIENCE<span class="text-acid">.</span></h2>
             <div class="space-y-24">
@@ -192,20 +266,17 @@
             experience: [
                 {
                     company: "Belle International", // [cite: 24]
-                    role: "Data Analyst Intern",
-                    bullet: "Summer 2025", // [cite: 25]
-                    img: "", 
-                    details: [
-                        "Conducted customer segmentation using K-Means (18 segments) to identify behavioral patterns.", // [cite: 26]
-                        "Analyzed 100+ footwear brands to build a Style Positioning benchmarking matrix." // [cite: 27]
-                    ]
+                    role: "Data Analyst Intern", // [cite: 24]
+                    dept: "Product Strategy & Data Division", 
+                    location: "Shenzhen, China", // [cite: 24]
+                    period: "Summer 2025",
                 },
                 {
                     company: "Harvest Global Capital", // [cite: 29]
                     role: "Operation & Analytics Intern",
-                    bullet: "Summer 2024", // [cite: 28]
+                    period: "Summer 2024", // [cite: 28]
                     img: "",
-                    details: [
+                    bullet: [
                         "Conducted market analysis for an $800M African natural gas investment.", // [cite: 29]
                         "Structured reporting for stakeholders and ensured cross-team data accuracy." // [cite: 31]
                     ]
@@ -213,9 +284,9 @@
                 {
                     company: "Zhong'ou Rabbit Fund", // [cite: 29]
                     role: "Investment Research Intern",
-                    bullet: "Summer 2023",
+                    period: "Summer 2023",
                     img: "",
-                    details: [
+                    bullet: [
                         "Conducted market analysis for an $800M African natural gas investment.", // [cite: 29]
                         "Structured reporting for stakeholders and ensured cross-team data accuracy." // [cite: 31]
                     ]
