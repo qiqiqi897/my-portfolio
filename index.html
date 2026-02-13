@@ -31,7 +31,7 @@
     <div id="cursor"></div>
     
     <div id="app" v-cloak>
-        
+<!-- ================= HERO ================= -->    
         <section class="min-h-screen flex flex-col justify-center px-10 md:px-20 relative overflow-hidden">
             <div class="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-acid rounded-full blur-[180px] opacity-[0.08] animate-pulse"></div>
             
@@ -63,7 +63,7 @@
                 <p class="text-[10px] tracking-[1em] uppercase font-mono">Curiosity • Data • Impact</p>
             </div>
         </section>
-
+<!-- ================= About ================= -->
         <section class="py-20 px-10 md:px-20">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="md:col-span-2 glass p-10 rounded-3xl">
@@ -88,7 +88,7 @@
                 </div>
             </div>
         </section>
-
+<!-- ================= SKILLS ================= -->
         <section class="py-10 border-y border-white/10 overflow-hidden bg-white/[0.01]">
             <div class="marquee-content">
                 <span v-for="skill in [...profileData.skills, ...profileData.skills]" class="text-6xl md:text-8xl font-black uppercase mx-12 opacity-20 hover:opacity-100 hover:text-acid transition-all duration-500 cursor-default">
@@ -96,9 +96,9 @@
                 </span>
             </div>
         </section>
-
+<!-- ================= Experience ================= -->
         <section class="py-32 px-10 md:px-20 border-t border-white/5">
-            <h2 class="text-sm uppercase tracking-[0.5em] mb-20 opacity-30">// Featured Experience</h2>
+            <h2 class="text-sm uppercase tracking-[0.5em] mb-20 opacity-30">//Experience</h2>
             
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -111,10 +111,10 @@
                         </div>
                     </div>
                     <div class="text-right font-mono text-sm opacity-40 tracking-widest uppercase">
-                        Shenzhen, China [cite: 24]<br>Summer 2025 [cite: 25]
+                        Shenzhen, China <br>Summer 2025 
                     </div>
                 </div>
-
+                <!-- ================= Belle alpha project ================= -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 items-center">
                     <div class="glass p-10 rounded-[2rem] order-2 lg:order-1">
                         <div class="flex items-center gap-3 mb-6">
@@ -130,6 +130,7 @@
                             <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Archetype Modeling</span>
                         </div>
                     </div>
+   
                     
                     <div class="order-1 lg:order-2 h-80 glass rounded-[2rem] relative overflow-hidden flex items-center justify-center group">
                         <svg class="w-full h-full p-12 opacity-40 group-hover:opacity-80 transition-opacity" viewBox="0 0 200 100">
@@ -139,15 +140,45 @@
                             <text x="130" y="90" fill="white" font-size="5" class="opacity-50">Price Sensitivity</text>
                             <text x="10" y="15" fill="white" font-size="5" class="opacity-50" transform="rotate(-90 10,15)">Emotional Resonance</text>
                         </svg>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-sm">
+                            <span class="text-xs font-mono tracking-widest">VISUALIZING 18 CLUSTERS</span>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- ================= Belle beta project ================= -->  
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                     <div class="h-80 glass rounded-[2rem] relative overflow-hidden p-8 grid grid-cols-4 gap-2 opacity-30 hover:opacity-100 transition-all group">
+                        <div v-for="n in 16" :class="['rounded-md', Math.random() > 0.6 ? 'bg-acid' : 'bg-white/10']"></div>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <span class="text-xs font-black tracking-[0.3em] uppercase rotate-[-5deg]">Design Element × Style Matrix</span>
+                        </div>
+                    </div>
+       
+                    <div class="glass p-10 rounded-[2rem]">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-2 h-2 bg-acid rounded-full"></span>
+                            <span class="text-xs font-black uppercase tracking-widest text-acid">Project Beta</span>
+                    </div>
+                    <h4 class="text-3xl font-bold mb-6 leading-tight">Design × Style <br>Benchmarking Matrix</h4>
+                    <p class="text-sm opacity-70 leading-relaxed mb-8">
+                        分析 100+ 细分时尚鞋履品牌 。首创“设计元素 × 风格定位”对标矩阵，为产品研发和品牌视觉方向提供量化支撑，协助提取差异化竞争策略 。
+                    </p>
+                    <div class="flex gap-4">
+                        <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Competitive Intelligence</span>
+                        <span class="text-[10px] px-3 py-1 border border-white/20 rounded-full font-mono">Quantitative Benchmarking</span>
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>       
+    </section>
+<!-- ================= Experience2: Harvest ================= -->
+        
+<!-- ================= Project ================= -->
         <section class="py-32 px-10 md:px-20 bg-white/[0.02]">
             <div class="max-w-5xl mx-auto">
                 <h2 class="text-[5vw] font-black mb-20 tracking-tighter italic uppercase text-center">
-                    Selected Projects<span class="text-acid">.</span>
+                    Projects<span class="text-acid">.</span>
                 </h2>
 
                 <div class="space-y-6">
@@ -189,7 +220,7 @@
                 </div>
             </div>
         </section>
-
+<!-- ================= Leadership ================= -->
         <section class="py-32 px-10 md:px-20">
             <h2 class="text-4xl font-black mb-20 italic uppercase text-acid">Leadership.</h2>
             <div class="space-y-40">
@@ -209,7 +240,7 @@
                 </div>
             </div>
         </section>
-
+<!-- ================= Footer ================= -->
         <footer class="py-40 px-10 md:px-20 border-t border-white/10 flex flex-col md:flex-row justify-between items-end">
             <div>
                 <p class="text-[10px] opacity-40 mb-6 uppercase tracking-[0.5em]">Contact</p>
